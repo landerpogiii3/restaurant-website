@@ -31,7 +31,7 @@
             $restoCollection = $dbResto->colResto;
 
             $documentlist = $restoCollection->find(
-                // ['borough' => 'Bronx']
+                ['cuisine' => 'Hamburgers']
             );
 
             foreach($documentlist as $doc){

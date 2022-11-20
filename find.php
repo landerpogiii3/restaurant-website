@@ -2,16 +2,18 @@
 require 'vendor/autoload.php';
 
 $client = new MongoDB\Client;
-$companydb = $client->companydb;
-$empcollection = $companydb->empcollection;
+$dbResto = $client->dbResto;
+$empcollection = $dbResto->colResto;
 
 $documentlist = $empcollection->find(
-    ['skill' => 'mongoDB']
+    ['borough' => 'Bronx'],
+    ['limit' => 2]
 );
 
 foreach($documentlist as $doc){
     var_dump($doc);
 }
+printf("Matched %d documents \n", $documentlist->getMatchedCount());
 
 // $document = $empcollection->findOne(
 //     ['_id'=> '1']

@@ -35,7 +35,7 @@
         </div>
     </div>
 
-    <h1>List of Restaurants</h1>
+    <h1>Quality Restaurants</h1>
     <br>
     <table class="table">
         <thead>

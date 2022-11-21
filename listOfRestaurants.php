@@ -10,18 +10,6 @@
 <body style="margin: 50px;">
     <h1>List of Restaurants</h1>
     <br>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-7">
-                <form action="" method = "GET">
-                    <div class="input-group mb-3">
-                        <input type="text" name="search" value="<?php if(isset($_GET['search'])){echo $_GET['search'];} ?>" class="form-control" placeholder="Search data">
-                        <button type="submit" class="btn btn-primary">Search</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
     <table class="table">
         <thead>
             <tr>
@@ -41,22 +29,10 @@
             $client = new MongoDB\Client;
             $dbResto = $client->dbResto;
             $restoCollection = $dbResto->colResto;
-            $documentlist = $restoCollection->find();
 
-            if(isset($_GET['search'])){
-                $searchContent = $_GET['search'];
-
-                $documentlist = $restoCollection->find(
-                    ['$or'=>[
-                        ['borough' => $searchContent],
-                        ['cuisine' => $searchContent],
-                        ['name' => $searchContent],
-                        ['restaurant_id' => $searchContent],
-
-                    ]]
-                    //searches for any match
-                );
-            }
+            $documentlist = $restoCollection->find(
+                ['cuisine' => 'Hamburgers']
+            );
 
             foreach($documentlist as $doc){
                 foreach($doc['grades'] as $grades){

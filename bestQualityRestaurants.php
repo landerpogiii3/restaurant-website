@@ -56,10 +56,22 @@
             $client = new MongoDB\Client("mongodb+srv://phpCodeUser:HR2y8tQUSEfD4@restaurantcluster.hjdmnjz.mongodb.net/?retryWrites=true&w=majority");
             $dbResto = $client->dbResto;
             $restoCollection = $dbResto->colResto;
+            $pipeline = [
+                ['$match' => ['grades.score' => ['$gt' => 90]]],
+                ['$project' => [
+                    'name' => 1,
+                    'restaurant_id' => 1,
+                    'cuisine' => 1,
+                    'grades' => 1,
+                    'borough' => 1,
+                    'address' => 1
+                ]
+            ],
+            ];
 
-            $documentlist = $restoCollection->find(
-                //['cuisine' => 'Hamburgers']
-                //shows all restaurants and corresponding info
+            $documentlist = $restoCollection->aggregate(
+                $pipeline
+                //shows all restaurants with grades greater than 90
             );
 
             foreach($documentlist as $doc){
